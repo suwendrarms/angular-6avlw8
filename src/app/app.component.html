@@ -1,0 +1,35 @@
+<div class="demo-section k-content">
+<kendo-chat
+        [messages]="feed | async"
+        [user]="user"
+        (sendMessage)="sendMessage($event)"
+>
+<ng-template kendoChatAttachmentTemplate let-attachment>
+  <div class="k-card" *ngIf="attachment.contentType ==='video'">
+    <!-- The attachment content is "{{ attachment.content }}" -->
+    <iframe width="200" height="100" [src]="attachment.content" frameborder="4" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div class="k-card" *ngIf="attachment.contentType ==='text'">
+    {{attachment.content}}
+  </div>
+  <div class="k-card" *ngIf="attachment.contentType ==='image/gif'">
+    <img [src]="attachment.content" alt="">
+  </div>
+  <kendo-chat-hero-card *ngIf="attachment.contentType ==='image/png'"
+  imageUrl="{{ attachment.content.images[0]?.url }}"
+  [title]="attachment.content.title"
+  [subtitle]="attachment.content.subtitle"
+  >
+  </kendo-chat-hero-card>
+</ng-template>
+
+<!-- <ng-template kendoChatAttachmentTemplate let-attachment>
+  <div class="k-card" *ngIf="attachment.contentType === 'video'">
+    <div class="k-card">
+      <h1>{{attachment.contentType}}</h1>
+    </div>
+    
+    <iframe width="450" height="315" [src]="attachment.content" frameborder="4" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</ng-template> -->
+</kendo-chat></div>
